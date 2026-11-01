@@ -1,57 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shri Sivasakthi Oil Mill - Namnalam</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-amber-50 text-neutral-900">
-    <!-- Header -->
-    <header class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
-        <h1 class="text-xl font-bold text-amber-800">Namnalam</h1>
-        <a href="https://wa.me/{{ whatsapp_number }}?text=Hi,%20I%20want%20to%20place%20an%20order%20with%20Shri%20Sivasakthi%20Oil%20Mill." 
-           target="_blank"
-           class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 text-sm">
-           💬 WhatsApp Order
-        </a>
+<body class="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 text-neutral-900 min-h-screen flex flex-col justify-between">
+
+    <!-- Top Sticky Header -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm border-b border-amber-200 p-4 sticky top-0 z-50 transition-all">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🌿</span>
+                <h1 class="text-xl font-extrabold tracking-tight text-amber-900">Namnalam</h1>
+            </div>
+            <a href="https://wa.me/{{ whatsapp_number }}?text=Hi,%20I%20want%20to%20place%20an%20order%20with%20Shri%20Sivasakthi%20Oil%20Mill." 
+               target="_blank"
+               class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 py-2 rounded-full font-bold shadow-md hover:shadow-lg transition flex items-center gap-2 text-sm">
+               <span>💬</span> WhatsApp Order
+            </a>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="p-6 text-center max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold text-amber-900 mb-2">Shri Sivasakthi Oil Mill</h2>
-        <p class="text-amber-800 mb-6">Traditional Cold-Pressed (Chekku) Oils & Groceries direct from Coimbatore to your kitchen.</p>
+    <!-- Hero Showcase Section -->
+    <section class="py-12 px-4 text-center max-w-3xl mx-auto">
+        <span class="bg-amber-200/80 text-amber-900 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-amber-300">
+            ✨ 100% Pure & Traditional Chekku Oils
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-amber-950 mt-4 mb-4 tracking-tight">
+            Shri Sivasakthi Oil Mill
+        </h2>
+        <p class="text-lg text-amber-900/80 leading-relaxed max-w-2xl mx-auto">
+            Cold-pressed to preserve natural nutrients, authentic aroma, and rich flavor. Delivered fresh direct from Coimbatore to your kitchen.
+        </p>
     </section>
 
-    <!-- Products Section -->
-    <section class="max-w-5xl mx-auto px-4 py-6">
-        <h3 class="text-2xl font-bold text-amber-900 mb-6 text-center">Our Premium Product Line</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Products Grid Section -->
+    <main class="max-w-6xl mx-auto px-4 pb-16 flex-grow">
+        <h3 class="text-2xl font-bold text-amber-950 mb-8 text-center border-b-2 border-amber-200 pb-3 inline-block mx-auto w-full max-w-xs">
+            Our Premium Lineup
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for p in products %}
-            <div class="bg-white rounded-xl shadow p-4 flex flex-col justify-between">
+            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-amber-100 flex flex-col justify-between group">
                 <div>
-                    <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}" class="w-full h-48 object-cover rounded-lg mb-3 bg-amber-100">
-                    <h4 class="font-bold text-lg text-amber-900">{{ p.name }}</h4>
-                    <p class="text-sm text-gray-600 mt-1">{{ p.desc }}</p>
+                    <!-- Product Image Container with Zoom Effect -->
+                    <div class="overflow-hidden bg-amber-50 h-56 relative">
+                        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-amber-900 shadow">
+                            {{ p.price }}
+                        </div>
+                    </div>
+                    <!-- Product Info -->
+                    <div class="p-5">
+                        <h4 class="font-bold text-xl text-amber-950 group-hover:text-amber-700 transition">{{ p.name }}</h4>
+                        <p class="text-sm text-neutral-600 mt-2 leading-relaxed">{{ p.desc }}</p>
+                    </div>
                 </div>
-                <div class="mt-4 flex items-center justify-between">
-                    <span class="font-bold text-green-700">{{ p.price }}</span>
+                <!-- Action Button -->
+                <div class="p-5 pt-0">
                     <a href="https://wa.me/{{ whatsapp_number }}?text=Hi,%20I%20would%20like%20to%20order%20{{ p.name }}" 
                        target="_blank"
-                       class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded text-sm font-medium">
-                       Order Now
+                       class="w-full bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition duration-200 flex items-center justify-center gap-2 text-sm">
+                       <span>🛒</span> Order via WhatsApp
                     </a>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </section>
+    </main>
 
-    <!-- Address & Footer -->
-    <footer class="bg-amber-900 text-amber-100 p-6 mt-12 text-center">
-        <h5 class="font-bold text-lg mb-2">Shri Sivasakthi Oil Mill</h5>
-        <p class="text-sm max-w-md mx-auto leading-relaxed">{{ address }}</p>
-        <p class="text-sm mt-3 font-semibold">WhatsApp Orders: +91 9095553344</p>
+    <!-- Footer Address -->
+    <footer class="bg-amber-950 text-amber-100 py-10 px-6 border-t border-amber-900 text-center">
+        <div class="max-w-2xl mx-auto space-y-3">
+            <h5 class="font-bold text-xl text-amber-200">Shri Sivasakthi Oil Mill & Namnalam</h5>
+            <p class="text-sm text-amber-100/80 leading-relaxed">{{ address }}</p>
+            <div class="pt-2">
+                <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-2 rounded-full text-sm transition shadow">
+                    💬 Direct WhatsApp: +91 9095553344
+                </a>
+            </div>
+        </div>
     </footer>
+
 </body>
 </html>
