@@ -1,24 +1,28 @@
-import os
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 
-app = Flask(__name__)
-
-# Search keyword intents for marketing
-TRENDING_KEYWORDS = [
-    "best organic cold pressed coconut oil brand",
-    "pure wood pressed groundnut oil price 1L",
-    "traditional chekku gingelly oil online delivery"
-]
+# static_folder='.' allows Flask to serve images directly from your root folder
+app = Flask(__name__, static_folder='.')
 
 @app.route('/')
 def home():
-    return render_template('index.html', keywords=TRENDING_KEYWORDS)
+    # Mapped using your exact uploaded image filenames
+    products = [
+        {"name": "Cold-Pressed Coconut Oil", "price": "₹280 / Litre", "image": "4Q7A9748.JPG", "desc": "Pure chekku extracted, rich aroma."},
+        {"name": "Cold-Pressed Groundnut Oil", "price": "₹260 / Litre", "image": "4Q7A9752.JPG", "desc": "Traditional wooden churned."},
+        {"name": "Cold-Pressed Gingelly Oil", "price": "₹340 / Litre", "image": "1773509019588.png", "desc": "Sesame oil for health and traditional cooking."},
+        {"name": "Pure Nattu Sakkarai (Jaggery)", "price": "₹90 / Kg", "image": "1773509713924.png", "desc": "Chemical-free unrefined cane sugar."},
+        {"name": "Deepam Lamp Oil", "price": "₹150 / Litre", "image": "4Q7A9748.JPG", "desc": "Custom blend for bright, clean burning."}
+    ]
+    
+    address = "1/114, 1/115, Chinnamanaikenpalyam, J.krishnapuram, Sulur, Coimbatore 641671"
+    whatsapp_number = "919095553344"
+    
+    return render_template('index.html', products=products, address=address, whatsapp_number=whatsapp_number)
 
 @app.route('/health')
-def health_check():
-    """Endpoint used by Render cron job to keep the site active"""
-    return jsonify({"status": "active", "message": "Namnalam oils website is live!"}), 200
+def health():
+    return "OK", 200
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
+    
